@@ -1,5 +1,4 @@
 
-
 namespace :parcel do
 
   task :starting do
@@ -21,7 +20,7 @@ namespace :parcel do
     desc 'Check shared and release directories exist'
     task :directories do
       on roles :build do
-        execute :mkdir, '-pv', shared_path, releases_path
+        execute :mkdir, '-pv', releases_path, build_path
       end
     end
 
@@ -35,6 +34,17 @@ namespace :parcel do
           end
         end
       end
+    end
+  end
+
+  task :new_release_path do
+    set_release_path
+  end
+
+  task :last_release_path do
+    on roles(:all) do
+      last_release = capture(:ls, '-xr', releases_path).split[1]
+      set_release_path(last_release)
     end
   end
 end
