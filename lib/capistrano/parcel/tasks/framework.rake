@@ -16,12 +16,22 @@ namespace :parcel do
   task :updated do
   end
 
+  desc 'Build depencencies'
+  task :building do
+  end
+
+  desc 'Build finished'
+  task :built do
+  end
+
+
 end
 
 desc 'Build a new package.'
 task :parcel do
   %w{ starting started
       updating updated
+      building built
     }.each do |task|
     invoke "parcel:#{task}"
   end

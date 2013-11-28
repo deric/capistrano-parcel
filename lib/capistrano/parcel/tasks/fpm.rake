@@ -10,6 +10,12 @@ namespace :fpm do
       require_deb 'ruby'
     end
   end
+
+  task :make do
+    on roles :build do
+
+    end
+  end
 end
 
 namespace :parcel do

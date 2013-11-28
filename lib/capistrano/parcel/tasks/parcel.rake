@@ -9,6 +9,10 @@ namespace :parcel do
     invoke "#{scm}:install"
   end
 
+  task :buiding do
+
+  end
+
   desc 'Check required files and directories exist'
   task :check do
     invoke "#{scm}:check"
