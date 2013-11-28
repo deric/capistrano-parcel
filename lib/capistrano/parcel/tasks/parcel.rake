@@ -7,6 +7,7 @@ namespace :parcel do
 
   task :updating => :new_release_path do
     invoke "#{scm}:install"
+    invoke 'parcel:symlink:release'
   end
 
   task :building do
@@ -23,12 +24,29 @@ namespace :parcel do
     end
   end
 
+  task :finishing do
+    #on roles :deb do
+    #  meta = YAML::load_file(File.join(install_path, 'package.yml'))
+    #  info meta.inspect
+    #end
+  end
+
   desc 'Check required files and directories exist'
   task :check do
     invoke "#{scm}:check"
     invoke 'parcel:check:directories'
     invoke 'parcel:check:dependencies'
     invoke 'parcel:check:gems'
+  end
+
+  namespace :symlink do
+    desc 'Symlink release to current'
+    task :release do
+      on roles :build do
+        execute :rm, '-rf', current_path
+        execute :ln, '-s', release_path, current_path
+      end
+    end
   end
 
   namespace :check do

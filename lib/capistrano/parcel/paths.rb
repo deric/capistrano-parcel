@@ -43,5 +43,16 @@ module Capistrano
       set(:required_debs, dep)
     end
 
+    def deb_dependency(pkg)
+      dep = fetch(:deb_dependency)
+      dep ||= []
+      if pkg.respond_to?(:each)
+        dep += pkg
+      else
+        dep << pkg
+      end
+      set(:deb_dependency, dep)
+    end
+
   end
 end
