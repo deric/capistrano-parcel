@@ -30,7 +30,7 @@ namespace :virtualenv do
         python_bin = capture 'which python3'
         within install_path do
           venv_path = "#{install_path}/#{fetch(:venv_name)}"
-          venv_msg = capture "virtualenv #{venv_path} --python=#{python_bin}"
+          venv_msg = capture "virtualenv --python=#{python_bin} #{venv_path}"
           info venv_msg
         end
       end
@@ -56,5 +56,5 @@ end
 
 namespace :parcel do
   before 'parcel:starting', 'virtualenv:check'
-  after 'parcel:building', 'virtualenv:create'
+  before 'parcel:building', 'virtualenv:create'
 end
