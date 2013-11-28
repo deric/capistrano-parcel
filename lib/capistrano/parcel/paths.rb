@@ -3,11 +3,14 @@ module Capistrano
   module DSL
 
     def install_to
-      fetch(:build_at)
+      path = fetch(:install_to)
+      # make it relative to build directory
+      path[0] = '' if path.start_with?('/')
+      path
     end
 
     def install_path
-      Pathname.new(build_at)
+      release_path.join(install_to)
     end
 
     def package_root

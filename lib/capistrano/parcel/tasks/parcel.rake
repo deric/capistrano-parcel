@@ -6,7 +6,7 @@ namespace :parcel do
   end
 
   task :updating => :new_release_path do
-    invoke "#{scm}:create_release"
+    invoke "#{scm}:install"
   end
 
   desc 'Check required files and directories exist'
@@ -21,7 +21,7 @@ namespace :parcel do
     desc 'Check shared and release directories exist'
     task :directories do
       on roles :build do
-        execute :mkdir, '-pv', releases_path, package_root
+        execute :mkdir, '-pv', releases_path
       end
     end
 
