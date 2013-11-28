@@ -20,7 +20,7 @@ namespace :parcel do
     desc 'Check shared and release directories exist'
     task :directories do
       on roles :build do
-        execute :mkdir, '-pv', releases_path, build_path
+        execute :mkdir, '-pv', releases_path, package_root
       end
     end
 
