@@ -41,7 +41,7 @@ namespace :parcel do
 
     task :dependencies do
       on roles :deb do
-        dep = fetch(:deb_dependencies)
+        dep = fetch(:required_debs)
         unless dep.nil?
           dep.each do |dep|
             unless test "dpkg-query -l #{dep} >/dev/null 2>&1"
@@ -56,7 +56,7 @@ namespace :parcel do
 
     task :gems do
       on roles :build do
-        dep = fetch(:gem_dependencies)
+        dep = fetch(:required_gems)
         unless dep.nil?
           dep.each do |dep|
             unless test "gem list #{dep} >/dev/null 2>&1"
