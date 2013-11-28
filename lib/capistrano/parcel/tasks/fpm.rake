@@ -20,7 +20,7 @@ namespace :fpm do
         info capture("which fpm")
         file ="#{fetch(:application)}_all.deb"
         execute "cd #{release_path} && #{gem_path}/fpm #{cmd} -p #{deploy_path}/#{file} -- ."
-        set :package_file, "#{deploy_path}/file"
+        set :package_file, "#{deploy_path}/#{file}"
       end
     end
   end
