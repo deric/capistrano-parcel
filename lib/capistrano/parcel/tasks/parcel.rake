@@ -14,6 +14,7 @@ namespace :parcel do
     invoke "#{scm}:check"
     invoke 'parcel:check:directories'
     invoke 'parcel:check:dependencies'
+    invoke 'parcel:check:gems'
   end
 
   namespace :check do
@@ -26,11 +27,27 @@ namespace :parcel do
 
     task :dependencies do
       on roles :deb do
-        fetch(:deb_dependencies).each do |dep|
-          unless test "dpkg-query -l #{dep} >/dev/null 2>&1"
-            execute :sudo, "apt-get install -y #{dep}"
-          else
-            info "#{dep} already installed"
+        dep = fetch(:deb_dependencies)
+        unless dep.nil?
+          dep.each do |dep|
+            unless test "dpkg-query -l #{dep} >/dev/null 2>&1"
+              execute :sudo, "apt-get install -y #{dep}"
+            else
+              info "#{dep} already installed"
+            end
+          end
+        end
+      end
+    end
+
+    task :gems do
+      on roles :build do
+        dep = fetch(:gem_dependencies)
+        unless dep.nil?
+          dep.each do |dep|
+            unless test "gem list #{dep} >/dev/null 2>&1"
+              execute :gem, "install #{dep}"
+            end
           end
         end
       end
