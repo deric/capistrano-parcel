@@ -18,9 +18,7 @@ namespace :parcel do
     roles(:deb).each do |server|
       user = server.properties.user
       run_locally do
-        info server.properties.inspect
-        #info server.inspect
-        execute :rsync, "-avz -e 'ssh -i #{server.ssh_options[:keys].first}'#{server.user}@#{server.hostname}:#{fetch(:package_file)} ."
+        execute :scp, "-i #{server.ssh_options[:keys].first} #{server.user}@#{server.hostname}:#{fetch(:package_file)} ."
       end
     end
   end
