@@ -28,6 +28,10 @@ namespace :fpm do
     end
   end
 
+  task :cmd do
+
+  end
+
   task :make do
     invoke 'fpm:load_meta'
     on roles :build do

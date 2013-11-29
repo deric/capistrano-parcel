@@ -1,0 +1,7 @@
+[uwsgi]
+# set the http port
+http = :<%= fetch(:uwsgi_port) %>
+# change to project directory
+chdir = "<%= fetch(:project_dir) %>"
+module = <%= fetch(:application) %>.uwsgi
+home = <%= fetch(:venv_path) %>

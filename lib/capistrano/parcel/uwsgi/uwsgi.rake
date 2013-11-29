@@ -5,11 +5,14 @@ namespace :uwsgi do
     on roles :deb do
       deb_dependency 'uwsgi'
     end
+    on roles :build do
+      set :project_dir, "#{install_path}"
+    end
   end
 
   task :setup do
     # load from local gem
-    conf_erb = File.expand_path("../service.conf.erb", __FILE__)
+    conf_erb = File.expand_path("../app.uwsgi.erb", __FILE__)
     template = File.read(conf_erb)
     on roles :build do
       config_dir = package_root.join('etc/uwsgi')

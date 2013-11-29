@@ -4,6 +4,7 @@ namespace :virtualenv do
   task :check do
     on roles :build do
       require_deb 'python-virtualenv'
+      set :venv_path, "#{install_path}/#{fetch(:venv_name)}"
     end
   end
 
@@ -29,8 +30,7 @@ namespace :virtualenv do
         # using system python for now
         python_bin = capture 'which python3'
         within install_path do
-          venv_path = "#{install_path}/#{fetch(:venv_name)}"
-          venv_msg = capture "virtualenv --python=#{python_bin} #{venv_path}"
+          venv_msg = capture "virtualenv --python=#{python_bin} #{fetch(:venv_path)}"
           info venv_msg
         end
       end

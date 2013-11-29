@@ -1,7 +1,7 @@
 [program:<%= fetch(:application) %>]
-command=<%= fetch(:uwsgi_bin) %> --ini=/etc/uwsgi/<%= fetch(:application) %>.uswgi
+command=<%= fetch(:uwsgi_bin) %> --ini=/etc/uwsgi/<%= fetch(:application) %>.uwsgi
 process_name=<%= fetch(:application) %>
-numprocs=<%= fetch(:uwsgi_processes) %>
+numprocs=<%= fetch(:supervisor_numprocs) %>
 directory=/tmp
 umask=022
 priority=999
@@ -12,9 +12,9 @@ startretries=3
 exitcodes=0,2
 stopsignal=TERM
 stopwaitsecs=10
-user=<%= fetch(:uwsgi_user) %>
+user=<%= fetch(:supervisor_user) %>
 redirect_stderr=false
-stdout_logfile=/var/log/<%= fetch(:application) %>.log
+stdout_logfile=<%= fetch(:log_dir) %>/<%= fetch(:application) %>.log
 stdout_logfile_maxbytes=1MB
 stdout_logfile_backups=10
 stdout_capture_maxbytes=1MB
