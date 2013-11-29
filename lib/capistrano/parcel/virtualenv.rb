@@ -1,3 +1,3 @@
-load File.expand_path("../tasks/python.rake", __FILE__)
-load File.expand_path("../tasks/virtualenv.rake", __FILE__)
-require 'capistrano/parcel/venv'
+load File.expand_path("../virtualenv/python.rake", __FILE__)
+load File.expand_path("../virtualenv/virtualenv.rake", __FILE__)
+require 'capistrano/parcel/virtualenv/venv'

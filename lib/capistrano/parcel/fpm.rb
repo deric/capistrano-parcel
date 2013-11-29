@@ -1,1 +1,1 @@
-load File.expand_path("../tasks/fpm.rake", __FILE__)
+load File.expand_path("../fpm/fpm.rake", __FILE__)
