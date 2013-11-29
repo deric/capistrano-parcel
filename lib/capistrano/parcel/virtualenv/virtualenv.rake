@@ -4,6 +4,8 @@ namespace :virtualenv do
   task :check do
     on roles :build do
       require_deb 'python-virtualenv'
+      # must be install also on production system
+      deb_dependency 'python-virtualenv'
       set :venv_path, "#{install_path}/#{fetch(:venv_name)}"
     end
   end
