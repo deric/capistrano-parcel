@@ -1,6 +1,6 @@
 namespace :uwsgi do
   task :init do
-    on roles :build do
+    on roles :deb do
       deb_dependency 'uwsgi'
     end
   end

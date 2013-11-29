@@ -18,10 +18,13 @@ namespace :fpm do
         info "meta file: #{install_path}/package.yml"
         test "[[ -f #{install_path}/package.yml ]]" do
           info "meta file exists"
-          meta = YAML::load_file(File.join(install_path, 'package.yml'))
+          meta = YAML::load_file(File.expand_path(install_path, 'package.yml'))
         end
         version = '0.0.1'
         cmd = "-s dir -t deb -n #{fetch(:application)} --category misc -v #{version}"
+        fetch(:deb_dependency).each do |pkg|
+          cmd << " -d #{pkg}"
+        end
         info "fpm #{cmd}"
         gem_path = capture "gem env | sed -n '/^ *- EXECUTABLE DIRECTORY: */ { s/// ; p }'"
         info capture("which fpm")
