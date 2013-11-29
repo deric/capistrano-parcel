@@ -12,14 +12,26 @@ namespace :fpm do
     end
   end
 
+  task :load_meta do
+    on roles :build do
+      test "[[ -f #{install_path}/package.yml ]]" do
+        yaml = File.expand_path(install_path, 'package.yml')
+        begin
+          !!YAML.load_file(yaml)
+        rescue Exception => e
+          error e.message
+        end
+        meta = YAML::load_file(File.expand_path(install_path, 'package.yml'))
+        debug "#{meta}"
+        set :meta, meta
+      end
+    end
+  end
+
   task :make do
+    invoke 'fpm:load_meta'
     on roles :build do
       within install_path do
-        info "meta file: #{install_path}/package.yml"
-        test "[[ -f #{install_path}/package.yml ]]" do
-          info "meta file exists"
-          meta = YAML::load_file(File.expand_path(install_path, 'package.yml'))
-        end
         version = '0.0.1'
         cmd = "-s dir -t deb -n #{fetch(:application)} --category misc -v #{version}"
         fetch(:deb_dependency).each do |pkg|
@@ -29,11 +41,12 @@ namespace :fpm do
         gem_path = capture "gem env | sed -n '/^ *- EXECUTABLE DIRECTORY: */ { s/// ; p }'"
         info capture("which fpm")
         file ="#{fetch(:application)}_all.deb"
-        test "[[ -f file ]]" do
+        package_file = deploy_path.join(file)
+        test "[[ -f #{package_file} ]]" do
           execute :rm, file
         end
-        execute "cd #{release_path} && #{gem_path}/fpm #{cmd} -p #{deploy_path}/#{file} -- ."
-        set :package_file, "#{deploy_path}/#{file}"
+        execute "cd #{release_path} && #{gem_path}/fpm #{cmd} -p #{package_file} -- ."
+        set :package_file, package_file
       end
     end
   end
