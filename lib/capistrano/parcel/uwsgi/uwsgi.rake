@@ -15,11 +15,13 @@ namespace :uwsgi do
     conf_erb = File.expand_path("../app.uwsgi.erb", __FILE__)
     template = File.read(conf_erb)
     on roles :build do
-      config_dir = package_root.join('etc/uwsgi')
-      execute :mkdir, '-p', config_dir
-      file = config_dir.join("#{fetch(:application)}.uwsgi")
+      avail_dir = package_root.join('etc/uwsgi/apps-available')
+      enabled_dir = package_root.join('etc/uwsgi/apps-enabled')
+      execute :mkdir, '-p', avail_dir, enabled_dir
+      file = avail_dir.join("#{fetch(:application)}.ini")
       execute :echo, "\"#{ERB.new(template).result(binding)}\" > #{file}"
       info "written uwsgi config: #{file}"
+      execute :ln, '-s', file, enabled_dir.join("#{fetch(:application)}.ini")
     end
   end
 end

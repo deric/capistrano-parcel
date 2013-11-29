@@ -3,5 +3,7 @@
 http = :<%= fetch(:uwsgi_port) %>
 # change to project directory
 chdir = "<%= fetch(:project_dir) %>"
-module = <%= fetch(:application) %>.uwsgi
+module = <%= fetch(:application) %>.ini
 home = <%= fetch(:venv_path) %>
+processes = <%= fetch(:uwsgi_processes) %>
+enable-threads= <%= fetch(:uwsgi_enable_threads) %>
