@@ -4,6 +4,7 @@ namespace :uwsgi do
   task :init do
     on roles :deb do
       deb_dependency 'uwsgi'
+      deb_postinst "ln -s /etc/uwsgi/apps-available/#{fetch(:application)}.ini /etc/uwsgi/apps-enabled/#{fetch(:application)}.ini"
     end
     on roles :build do
       set :project_dir, "#{install_path}"
@@ -21,7 +22,6 @@ namespace :uwsgi do
       file = avail_dir.join("#{fetch(:application)}.ini")
       execute :echo, "\"#{ERB.new(template).result(binding)}\" > #{file}"
       info "written uwsgi config: #{file}"
-      execute :ln, '-s', file, enabled_dir.join("#{fetch(:application)}.ini")
     end
   end
 end
