@@ -1,0 +1,21 @@
+[program:<%= fetch(:application) %>]
+command=<%= fetch(:uwsgi_bin) %> --ini=/etc/uwsgi/<%= fetch(:application) %>.uswgi
+process_name=<%= fetch(:application) %>
+numprocs=<%= fetch(:uwsgi_processes) %>
+directory=/tmp
+umask=022
+priority=999
+autostart=true
+autorestart=true
+startsecs=10
+startretries=3
+exitcodes=0,2
+stopsignal=TERM
+stopwaitsecs=10
+user=<%= fetch(:uwsgi_user) %>
+redirect_stderr=false
+stdout_logfile=/var/log/<%= fetch(:application) %>.log
+stdout_logfile_maxbytes=1MB
+stdout_logfile_backups=10
+stdout_capture_maxbytes=1MB
+serverurl=AUTO

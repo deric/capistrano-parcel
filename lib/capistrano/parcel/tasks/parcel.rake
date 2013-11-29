@@ -10,11 +10,11 @@ namespace :parcel do
     invoke 'parcel:symlink:release'
   end
 
-  task :building do
+  task :packaging do
     invoke "#{fetch(:builder)}:make"
   end
 
-  task :built do
+  task :packaged do
     # download builds
     roles(:deb).each do |server|
       user = server.properties.user

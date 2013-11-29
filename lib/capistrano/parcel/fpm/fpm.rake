@@ -2,7 +2,7 @@ require 'yaml'
 
 namespace :fpm do
 
-  task :check do
+  task :init do
     on roles :build do
       require_gem 'fpm'
     end
@@ -37,5 +37,5 @@ namespace :fpm do
 end
 
 namespace :parcel do
-  before 'parcel:starting', 'fpm:check'
+  before 'parcel:starting', 'fpm:init'
 end

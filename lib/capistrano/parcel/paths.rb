@@ -14,7 +14,7 @@ module Capistrano
     end
 
     def package_root
-      deploy_path.join('package')
+      release_path
     end
 
     # dependencies for building
