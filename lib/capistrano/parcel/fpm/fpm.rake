@@ -13,15 +13,15 @@ namespace :fpm do
   end
 
   task :load_meta do
-    on roles :build do
-      test "[[ -f #{install_path}/package.yml ]]" do
-        yaml = File.expand_path(install_path, 'package.yml')
+    run_locally do
+      yaml = local_dir.join('package.yml')
+      if File.exists?(yaml)
         begin
           !!YAML.load_file(yaml)
         rescue Exception => e
           error e.message
         end
-        meta = YAML::load_file(File.expand_path(install_path, 'package.yml'))
+        meta = YAML::load_file(yaml)
         debug "#{meta}"
         set :meta, meta
       end
@@ -40,10 +40,10 @@ namespace :fpm do
         info "fpm #{cmd}"
         gem_path = capture "gem env | sed -n '/^ *- EXECUTABLE DIRECTORY: */ { s/// ; p }'"
         info capture("which fpm")
-        file ="#{fetch(:application)}_all.deb"
+        file ="#{fetch(:application)}_#{version}_all.deb"
         package_file = deploy_path.join(file)
-        test "[[ -f #{package_file} ]]" do
-          execute :rm, file
+        if test "[[ -f #{package_file} ]]"
+          execute :rm, "-f #{package_file}"
         end
         execute "cd #{release_path} && #{gem_path}/fpm #{cmd} -p #{package_file} -- ."
         set :package_file, package_file

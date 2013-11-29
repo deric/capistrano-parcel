@@ -17,6 +17,10 @@ module Capistrano
       release_path
     end
 
+    def local_dir
+      Pathname.new(Rake.application.original_dir)
+    end
+
     # dependencies for building
     # accepts either String or Array
     def require_gem(gem)
