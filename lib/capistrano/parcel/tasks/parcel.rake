@@ -8,17 +8,17 @@ namespace :parcel do
   task :updating => :new_release_path do
     invoke "#{scm}:install"
     invoke 'parcel:symlink:release'
-    invoke 'parcel:updating:permissions'
   end
 
-  namespace :updating do
-    task :permissions do
-      on roles :build do
-        execute :chown, "-R #{fetch(:owner)} #{release_path}"
-        execute :chgrp, "-R #{fetch(:group)} #{release_path}"
-      end
-    end
-  end
+# this is impossible unless we run the script under root
+#  namespace :updating do
+#    task :permissions do
+#      on roles :build do
+#        execute :chown, "-R #{fetch(:owner)} #{release_path}"
+#        execute :chgrp, "-R #{fetch(:group)} #{release_path}"
+#      end
+#    end
+#  end
 
   task :packaging do
     invoke "#{fetch(:builder)}:make"

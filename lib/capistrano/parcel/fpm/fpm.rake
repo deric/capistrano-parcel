@@ -39,10 +39,10 @@ namespace :fpm do
         end
         info "fpm #{cmd}"
         gem_path = capture "gem env | sed -n '/^ *- EXECUTABLE DIRECTORY: */ { s/// ; p }'"
-        info capture("which fpm")
         file ="#{fetch(:application)}_#{version}_all.deb"
         package_file = deploy_path.join(file)
         if test "[[ -f #{package_file} ]]"
+          info "removing existing package #{file}"
           execute :rm, "-f #{package_file}"
         end
         execute "cd #{release_path} && #{gem_path}/fpm #{cmd} -p #{package_file} -- ."
