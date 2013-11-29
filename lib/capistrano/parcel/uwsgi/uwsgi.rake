@@ -1,3 +1,5 @@
+require 'erb'
+
 namespace :uwsgi do
   task :init do
     on roles :deb do
@@ -6,15 +8,14 @@ namespace :uwsgi do
   end
 
   task :setup do
+    # load from local gem
+    conf_erb = File.expand_path("../service.conf.erb", __FILE__)
+    template = File.read(conf_erb)
     on roles :build do
       config_dir = package_root.join('etc/uwsgi')
       execute :mkdir, '-p', config_dir
-      conf_erb = File.expand_path("../service.conf.erb", __FILE__)
-      template = File.read(conf_erb)
-      file = config_dir.join("#{fetch(:application).uwsgi}")
-      File.open(file, 'w+') do |f|
-        f.write(ERB.new(template).result(binding))
-      end
+      file = config_dir.join("#{fetch(:application)}.uwsgi")
+      execute :echo, "\"#{ERB.new(template).result(binding)}\" > #{file}"
       info "written uwsgi config: #{file}"
     end
   end
