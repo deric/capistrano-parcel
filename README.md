@@ -1,8 +1,6 @@
 # Capistrano::Parcel
 
-Simple building tool inspired by Python's Parcel, just written in Ruby and with many improvements.
-
-Parcel is taking advantage of [Capistrano 3](https://github.com/capistrano/capistrano), [SSHkit](https://github.com/capistrano/sshkit) and [FPM](https://github.com/jordansissel/fpm).
+Simple building tool inspired by Python's Parcel, just written in Ruby and with many improvements. Parcel is taking advantage of [Capistrano 3](https://github.com/capistrano/capistrano), [SSHkit](https://github.com/capistrano/sshkit) and [FPM](https://github.com/jordansissel/fpm).
 
 The idea is simple:
 
@@ -55,7 +53,7 @@ $ cap build parcel
 
 requirements:
 
-  * some version of Ruby
+  * some version of Ruby (> 1.8.7 is recommended)
   * Bundler (`gem install bundler`)
 
 Create a `Gemfile` with following content:
