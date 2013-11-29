@@ -6,9 +6,9 @@ APP_NAME=<%= fetch(:application) %>
 
 case "$1" in
     remove)
-      <% deb_postrm.each do |line| -%>
+      <% fetch(:deb_postrm).each do |line| %>
       <%= line %>
-      <% end -%>
+      <% end unless fetch(:deb_postrm).nil? %>
 	;;
 
     purge)
@@ -20,7 +20,7 @@ case "$1" in
     failed-upgrade|disappear|abort-install|abort-upgrade)
 	;;
     *)
-	echo "$0 called with unknown argument \`$1'" 1>&2
+	echo "$0 called with unknown argument $1" 1>&2
 	exit 1
 	;;
 esac

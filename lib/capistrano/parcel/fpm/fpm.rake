@@ -46,12 +46,16 @@ namespace :fpm do
         cmd << "--category #{m[:category]} " if m.key?(:category)
         cmd << "--vendor #{m[:vendor]} " if m.key?(:vendor)
         cmd << "--license #{m[:license]} " if m.key?(:license)
-        cmd << "--description '#{m[:description]}' " if m.key?(:description)
+        if m.key?(:description)
+          error 'description can not be empty' if m[:description].empty?
+          cmd << "--description '#{m[:description]}' "
+        end
         cmd << "--url '#{m[:url]}' " if m.key?(:url)
         cmd << "-m '#{m[:maintainer]}' " if m.key?(:maintainer)
         fetch(:deb_dependency).each do |pkg|
           cmd << "-d #{pkg} "
         end
+        control = fetch(:control_scripts)
         {
           'preinst' => 'before-install',
           'postinst' => 'after-install',
@@ -59,7 +63,7 @@ namespace :fpm do
           'postrm' => 'after-remove',
         }.each do |key, val|
           file = "#{shared_path}/#{key}"
-          cmd << "--#{val} #{file}" if test "[[ -f #{file} ]]"
+          cmd << "--#{val} #{file} " if control.include?(key)
         end
       end
       set :fpm_deb_cmd, cmd

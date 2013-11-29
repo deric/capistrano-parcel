@@ -6,16 +6,16 @@ APP_NAME=<%= fetch(:application) %>
 
 case "$1" in
     configure)
-        <% deb_postinst.each do |line| -%>
+        <% fetch(:deb_postinst).each do |line| %>
         <%= line %>
-        <% end -%>
+        <% end unless fetch(:deb_postinst).nil? %>
         ;;
 
     abort-upgrade|abort-remove|abort-deconfigure)
     ;;
 
     *)
-        echo "postinst called with unknown argument \`$1'" >&2
+        echo "postinst called with unknown argument $1" >&2
         exit 1
     ;;
 esac

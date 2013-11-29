@@ -17,7 +17,7 @@ namespace :parcel do
       fetch(:control_scripts).each do |script|
         template = File.read(File.expand_path("../../templates/#{script}.erb", __FILE__))
         on roles :deb do
-          execute :echo, "\"#{ERB.new(template).result(binding)}\" > #{shared_path}/#{script}"
+          execute :echo, "'#{ERB.new(template).result(binding)}' > #{shared_path}/#{script}"
         end
       end
     end

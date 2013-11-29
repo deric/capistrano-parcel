@@ -9,9 +9,9 @@ case "$1" in
 	;;
 
     install|upgrade)
-      <% deb_preinst.each do |line| -%>
+      <% fetch(:deb_preinst).each do |line| %>
       <%= line %>
-      <% end -%>
+      <% end unless fetch(:deb_preinst).nil? %>
 
         ;;
     abort-upgrade)
@@ -19,7 +19,7 @@ case "$1" in
 
 
     *)
-	echo "$0 called with unknown argument \`$1'" 1>&2
+	echo "$0 called with unknown argument $1" 1>&2
 	exit 1
 	;;
 esac
