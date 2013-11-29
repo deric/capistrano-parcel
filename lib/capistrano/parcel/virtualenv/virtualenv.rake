@@ -56,5 +56,5 @@ end
 
 namespace :parcel do
   before 'parcel:starting', 'virtualenv:check'
-  before 'parcel:building', 'virtualenv:create'
+  before 'parcel:packaging', 'virtualenv:create'
 end
