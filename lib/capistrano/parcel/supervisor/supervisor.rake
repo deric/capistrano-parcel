@@ -3,7 +3,7 @@ namespace :supervisor do
   task :init do
     on roles :deb do
       deb_dependency 'supervisor'
-      deb_postinst "virtualenv #{fetch(:install_to)}/#{fetch(:venv_name)}"
+      deb_postinst "virtualenv /#{fetch(:install_to)}/#{fetch(:venv_name)}"
       deb_postinst "/etc/init.d/supervisor stop"
       deb_postinst "sleep 1"
       deb_postinst "/etc/init.d/supervisor start"

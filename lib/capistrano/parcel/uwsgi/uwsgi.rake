@@ -29,6 +29,6 @@ end
 # before 'parcel:started' all plugins should
 # specify its requiremets
 namespace :parcel do
-  before 'parcel:starting', 'uwsgi:init'
+  after 'parcel:starting', 'uwsgi:init'
   after 'parcel:updating', 'uwsgi:setup'
 end

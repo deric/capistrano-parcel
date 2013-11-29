@@ -1,5 +1,5 @@
 [program:<%= fetch(:application) %>]
-command=<%= fetch(:uwsgi_bin) %> --ini=/etc/uwsgi/<%= fetch(:application) %>.uwsgi
+command=<%= fetch(:uwsgi_bin) %> --ini=/etc/uwsgi/<%= fetch(:application) %>.ini
 process_name=<%= fetch(:application) %>
 numprocs=<%= fetch(:supervisor_numprocs) %>
 directory=/tmp

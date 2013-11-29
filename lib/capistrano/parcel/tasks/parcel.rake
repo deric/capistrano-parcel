@@ -12,6 +12,11 @@ namespace :parcel do
     invoke 'parcel:updating:scripts'
   end
 
+  task :permissions do
+    deb_postinst "chown -R #{fetch(:owner)} #{fetch(:install_to)}"
+    deb_postinst "chgrp -R #{fetch(:group)} #{fetch(:install_to)}"
+  end
+
   namespace :updating do
     task :scripts do
       fetch(:control_scripts).each do |script|
