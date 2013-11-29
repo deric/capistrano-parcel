@@ -52,6 +52,15 @@ namespace :fpm do
         fetch(:deb_dependency).each do |pkg|
           cmd << "-d #{pkg} "
         end
+        {
+          'preinst' => 'before-install',
+          'postinst' => 'after-install',
+          'prerm' => 'before-remove',
+          'postrm' => 'after-remove',
+        }.each do |key, val|
+          file = "#{shared_path}/#{key}"
+          cmd << "--#{val} #{file}" if test "[[ -f #{file} ]]"
+        end
       end
       set :fpm_deb_cmd, cmd
     end
@@ -62,10 +71,9 @@ namespace :fpm do
     invoke 'fpm:cmd_deb'
     on roles :deb do
       within install_path do
-        version = fetch(:version)
         cmd = fetch(:fpm_deb_cmd)
         info "fpm #{cmd}"
-        file ="#{fetch(:application)}_#{version}_all.deb"
+        file ="#{fetch(:application)}_#{fetch(:version)}_all.deb"
         package_file = deploy_path.join(file)
         if test "[[ -f #{package_file} ]]"
           info "removing existing package #{file}"

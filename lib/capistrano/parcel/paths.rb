@@ -34,29 +34,5 @@ module Capistrano
       set(:required_gems, dep)
     end
 
-    # dependencies for building
-    # accepts either String or Array
-    def require_deb(pkg)
-      dep = fetch(:required_debs)
-      dep ||= []
-      if pkg.respond_to?(:each)
-        dep += pkg
-      else
-        dep << pkg
-      end
-      set(:required_debs, dep)
-    end
-
-    def deb_dependency(pkg)
-      dep = fetch(:deb_dependency)
-      dep ||= []
-      if pkg.respond_to?(:each)
-        dep += pkg
-      else
-        dep << pkg
-      end
-      set(:deb_dependency, dep)
-    end
-
   end
 end

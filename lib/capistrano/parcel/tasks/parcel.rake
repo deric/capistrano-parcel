@@ -1,3 +1,4 @@
+require 'erb'
 
 namespace :parcel do
 
@@ -8,17 +9,19 @@ namespace :parcel do
   task :updating => :new_release_path do
     invoke "#{scm}:install"
     invoke 'parcel:symlink:release'
+    invoke 'parcel:updating:scripts'
   end
 
-# this is impossible unless we run the script under root
-#  namespace :updating do
-#    task :permissions do
-#      on roles :build do
-#        execute :chown, "-R #{fetch(:owner)} #{release_path}"
-#        execute :chgrp, "-R #{fetch(:group)} #{release_path}"
-#      end
-#    end
-#  end
+  namespace :updating do
+    task :scripts do
+      fetch(:control_scripts).each do |script|
+        template = File.read(File.expand_path("../../templates/#{script}.erb", __FILE__))
+        on roles :deb do
+          execute :echo, "\"#{ERB.new(template).result(binding)}\" > #{shared_path}/#{script}"
+        end
+      end
+    end
+  end
 
   task :packaging do
     invoke "#{fetch(:builder)}:make"
@@ -27,7 +30,6 @@ namespace :parcel do
   task :packaged do
     # download builds
     roles(:deb).each do |server|
-      user = server.properties.user
       run_locally do
         execute :scp, "-i #{server.ssh_options[:keys].first} #{server.user}@#{server.hostname}:#{fetch(:package_file)} ."
       end
@@ -35,10 +37,6 @@ namespace :parcel do
   end
 
   task :finishing do
-    #on roles :deb do
-    #  meta = YAML::load_file(File.join(install_path, 'package.yml'))
-    #  info meta.inspect
-    #end
   end
 
   desc 'Check required files and directories exist'
@@ -63,7 +61,7 @@ namespace :parcel do
     desc 'Check shared and release directories exist'
     task :directories do
       on roles :build do
-        execute :mkdir, '-pv', releases_path
+        execute :mkdir, '-pv', releases_path, shared_path
       end
     end
 

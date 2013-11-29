@@ -1,0 +1,28 @@
+#!/bin/sh
+
+set -e
+
+APP_NAME=<%= fetch(:application) %>
+
+case "$1" in
+    install)
+	;;
+
+    install|upgrade)
+      <% deb_preinst.each do |line| -%>
+      <%= line %>
+      <% end -%>
+
+        ;;
+    abort-upgrade)
+	;;
+
+
+    *)
+	echo "$0 called with unknown argument \`$1'" 1>&2
+	exit 1
+	;;
+esac
+
+
+exit 0

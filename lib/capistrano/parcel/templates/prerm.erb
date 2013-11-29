@@ -1,0 +1,21 @@
+#!/bin/sh
+
+set -e
+
+APP_NAME=<%= fetch(:application) %>
+
+case "$1" in
+    upgrade)
+      <% deb_prerm.each do |line| -%>
+      <%= line %>
+      <% end -%>
+    ;;
+
+    failed-upgrade|abort-install|abort-upgrade|disappear|purge|remove)
+    ;;
+
+    *)
+        echo "prerm called with unknown argument \`$1'" >&2
+        exit 1
+    ;;
+esac
