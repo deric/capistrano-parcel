@@ -1,34 +1,34 @@
-namespace :parcel do
+  namespace :parcel do
 
   desc 'Start a deployment, make sure server(s) ready.'
   task :starting do
   end
 
-  desc 'Started'
+  #desc 'Started'
   task :started do
   end
 
-  desc 'Update server(s) by setting up a new release.'
+  #desc 'Update server(s) by setting up a new release.'
   task :updating do
   end
 
-  desc 'Updated'
+  #desc 'Updated'
   task :updated do
   end
 
-  desc 'Building package'
+  #desc 'Building package'
   task :packaging do
   end
 
-  desc 'Build finished'
+  #desc 'Build finished'
   task :packaged do
   end
 
-  desc 'Build finished'
+  #desc 'Build finished'
   task :finishing do
   end
 
-  desc 'Build finished'
+  #desc 'Build finished'
   task :finished do
   end
 end

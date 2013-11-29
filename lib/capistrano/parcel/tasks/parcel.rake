@@ -44,7 +44,7 @@ namespace :parcel do
   task :finishing do
   end
 
-  desc 'Check required files and directories exist'
+  # Check required files and directories exist
   task :check do
     invoke "#{scm}:check"
     invoke 'parcel:check:directories'
@@ -53,7 +53,7 @@ namespace :parcel do
   end
 
   namespace :symlink do
-    desc 'Symlink release to current'
+    #desc 'Symlink release to current'
     task :release do
       on roles :build do
         execute :rm, '-rf', current_path
@@ -63,7 +63,7 @@ namespace :parcel do
   end
 
   namespace :check do
-    desc 'Check shared and release directories exist'
+    #desc 'Check shared and release directories exist'
     task :directories do
       on roles :build do
         execute :mkdir, '-pv', releases_path, shared_path

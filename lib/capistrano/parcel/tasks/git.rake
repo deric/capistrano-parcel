@@ -1,6 +1,6 @@
 namespace :git do
   # release_path is root of package filesystem
-  desc 'Copy repo to install'
+  # desc 'Copy repo to install'
   task install: :'git:update' do
     on roles :build do
       with fetch(:git_environmental_variables) do
