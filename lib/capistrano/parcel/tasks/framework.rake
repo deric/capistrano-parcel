@@ -16,6 +16,12 @@
   task :updated do
   end
 
+  task :compiling do
+  end
+
+  task :compiled do
+  end
+
   #desc 'Building package'
   task :packaging do
   end
@@ -37,6 +43,7 @@ desc 'Build a new package.'
 task :parcel do
   %w{ starting started
       updating updated
+      compiling compiled
       packaging packaged
       finishing finished
     }.each do |task|

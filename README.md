@@ -49,6 +49,22 @@ This will build package on remote server and transfer package back to your machn
 $ cap build parcel
 ```
 
+### Package metadata
+
+Meta information about package is fetched from a `package.yml` file which must be located on local filesystem (in directory where is `cap` command executed).
+
+```yml
+version: '0.0.1'
+arch: 'all'
+license: 'MIT'
+category: 'misc'
+maintainer: 'john.doe@example.com'
+vendor: 'Jon Doe et al.'
+description: 'Package description'
+url: 'http://example.com'
+```
+
+
 ## Installation
 
 requirements:

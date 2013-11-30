@@ -12,6 +12,7 @@ namespace :parcel do
     invoke 'parcel:updating:scripts'
   end
 
+  # change permissions to project files
   task :permissions do
     deb_postinst "chown -R #{fetch(:owner)} #{fetch(:install_to)}"
     deb_postinst "chgrp -R #{fetch(:group)} #{fetch(:install_to)}"
