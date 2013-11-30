@@ -1,6 +1,15 @@
 [uwsgi]
 # set the http port
+<% unless fetch(:uwsgi_port).empty? -%>
+  <% if fetch(:uwsgi_ip).empty? -%>
 socket = <%= "#{fetch(:uwsgi_ip)}:#{fetch(:uwsgi_port)}" %>
+  <% else -%>
+socket = <%= "0.0.0.0:#{fetch(:uwsgi_port)}" %>
+  <% end -%>
+<% else -%>
+socket = <%= "#{fetch(:uwsgi_socket)}" %>
+<% end -%>
+
 # change to project directory
 chdir = /<%= fetch(:install_to) %>
 <% if fetch(:use_virtualenv) -%>
@@ -8,9 +17,9 @@ virtualenv = /<%= fetch(:install_to) %>/<%= fetch(:venv_name) %>
 <% end -%>
 processes = <%= fetch(:uwsgi_processes) %>
 enable-threads= <%= fetch(:uwsgi_enable_threads) %>
+# might not be supported in older versions of uwsgi
 wsgi-file = <%= fetch(:uwsgi_file) %>
-master = <%= fetch(:uwsgi_master) %>
-pythonpath = /<%= fetch(:install_to) %>
+# respawn processes taking more than x seconds
 harakiri = <%= fetch(:uwsgi_harakiri) %>
 no-orphans = <%= fetch(:uwsgi_no_orphans) %>
 vacuum = <%= fetch(:uwsgi_vacuum) %>

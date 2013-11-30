@@ -12,3 +12,4 @@ set :sct, 'git'
 
 set :owner, 'www-data'
 set :group, 'www-data'
+set :log_dir, '/var/log'

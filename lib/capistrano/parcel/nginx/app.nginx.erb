@@ -1,0 +1,14 @@
+server {
+        listen          80;
+        server_name     $hostname;
+        access_log /var/log/nginx/<%= fetch(:application) %>-access.log;
+        error_log /var/log/nginx/<%= fetch(:application) %>-error.log;
+<% if fetch(:use_uwsgi) -%>
+        location / {
+            uwsgi_pass      unix:///run/uwsgi/app/<%= fetch(:application) %>/socket;
+            include         uwsgi_params;
+            uwsgi_param     UWSGI_SCHEME $scheme;
+            uwsgi_param     SERVER_SOFTWARE    nginx/$nginx_version;
+        }
+<% end -%>
+}
