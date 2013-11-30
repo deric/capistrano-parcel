@@ -1,10 +1,12 @@
 # Capistrano::Parcel
 
-Simple building tool inspired by Python's Parcel, just written in Ruby and with many improvements. Parcel is taking advantage of [Capistrano 3](https://github.com/capistrano/capistrano), [SSHkit](https://github.com/capistrano/sshkit) and [FPM](https://github.com/jordansissel/fpm).
+Distributed building tool, originally inspired by Python's Parcel, just written in Ruby and with many improvements. Parcel is taking advantage of [Capistrano 3](https://github.com/capistrano/capistrano), [SSHkit](https://github.com/capistrano/sshkit) and [FPM](https://github.com/jordansissel/fpm).
 
 The idea is simple:
 
   * we want to deploy native packages packed with all dependencies
+  * support multiple releases/distribution
+  * fast and reliable deployment
   * updating N production servers with `git pull` + package dependencies doesn't scale well
   * package should be tested before going to production
 
@@ -84,6 +86,15 @@ Enable with:
 require 'capistrano/parcel/uwsgi'
 ```
 
+#### nginx
+
+Currently allows only intialization of nginx scripts.
+
+Enable with:
+
+```ruby
+require 'capistrano/parcel/nginx'
+```
 #### supervisor
 
 (experimental)
