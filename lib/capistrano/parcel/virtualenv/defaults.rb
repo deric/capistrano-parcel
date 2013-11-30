@@ -1,3 +1,4 @@
+set :use_virtualenv, true
 set :venv_name, 'vp'
 set :pip_cache, "#{fetch(:tmp_dir)}/pip-cache/"
 set :venv_requirements, 'requirements.txt'

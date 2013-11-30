@@ -4,7 +4,9 @@ socket = <%= "#{fetch(:uwsgi_ip)}:#{fetch(:uwsgi_port)}" %>
 # change to project directory
 chdir = "/<%= fetch(:install_to) %>"
 module = <%= fetch(:application) %>.ini
+<% if fetch(:use_virtualenv) -%>
 virtualenv = /<%= fetch(:install_to) %>/<%= fetch(:venv_name) %>
+<% end -%>
 processes = <%= fetch(:uwsgi_processes) %>
 enable-threads= <%= fetch(:uwsgi_enable_threads) %>
 wsgi-file = <%= fetch(:uwsgi_file) %>
