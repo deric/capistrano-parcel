@@ -9,8 +9,8 @@ namespace :parcel do
   task :updating => :new_release_path do
     invoke "#{sct}:install"
     invoke 'parcel:symlink:release'
-    invoke 'parcel:updating:scripts'
     invoke 'parcel:permissions'
+    invoke 'parcel:updating:scripts'
   end
 
   # change permissions to project files

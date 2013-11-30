@@ -4,8 +4,8 @@ namespace :nginx do
   task :init do
     on roles :deb do
       deb_dependency 'nginx-full'
-      deb_postinst "if [ ! -f '/etc/nginx/apps-enabled/#{fetch(:application)}' ]; then"
-      deb_postinst "\tln -s /etc/nginx/apps-available/#{fetch(:application)} /etc/nginx/apps-enabled/#{fetch(:application)}"
+      deb_postinst "if [ ! -f '/etc/nginx/sites-enabled/#{fetch(:application)}' ]; then"
+      deb_postinst "\tln -s /etc/nginx/sites-available/#{fetch(:application)} /etc/nginx/sites-enabled/#{fetch(:application)}"
       deb_postinst "fi"
     end
     on roles :build do

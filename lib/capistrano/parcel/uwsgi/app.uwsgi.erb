@@ -1,7 +1,7 @@
 [uwsgi]
 # set the http port
-<% unless fetch(:uwsgi_port).empty? -%>
-  <% if fetch(:uwsgi_ip).empty? -%>
+<% unless fetch(:uwsgi_port).nil? -%>
+  <% if !fetch(:uwsgi_ip).nil? && !fetch(:uwsgi_ip).empty? -%>
 socket = <%= "#{fetch(:uwsgi_ip)}:#{fetch(:uwsgi_port)}" %>
   <% else -%>
 socket = <%= "0.0.0.0:#{fetch(:uwsgi_port)}" %>
