@@ -10,3 +10,10 @@ processes = <%= fetch(:uwsgi_processes) %>
 enable-threads= <%= fetch(:uwsgi_enable_threads) %>
 wsgi-file = <%= fetch(:uwsgi_file) %>
 master = <%= fetch(:uwsgi_master) %>
+pythonpath = /<%= fetch(:install_to) %>
+harakiri = <%= fetch(:uwsgi_harakiri) %>
+no-orphans = <%= fetch(:uwsgi_no_orphans) %>
+vacuum = <%= fetch(:uwsgi_vacuum) %>
+<% if fetch(:python3) -%>
+plugins = python3
+<% end -%>

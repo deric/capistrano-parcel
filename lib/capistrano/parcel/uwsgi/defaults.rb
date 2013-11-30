@@ -6,3 +6,7 @@ set :uwsgi_processes, 1
 set :uwsgi_enable_threads, false
 set :uwsgi_file, ''
 set :uwsgi_master, true
+set :uwsgi_harakiri, 30
+set :uwsgi_no_orphans, true
+set :uwsgi_vacuum, true
+set :python3, true
