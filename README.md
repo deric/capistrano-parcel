@@ -81,7 +81,7 @@ Simple application server configuration.
 Enable with:
 
 ```ruby
-require 'capistrano/parcel/plugin_name'
+require 'capistrano/parcel/uwsgi'
 ```
 
 #### supervisor
