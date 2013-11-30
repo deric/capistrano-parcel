@@ -49,6 +49,50 @@ This will build package on remote server and transfer package back to your machn
 $ cap build parcel
 ```
 
+### Build process
+
+Each phase is a separate Rake task. You can use `before` and `after` hooks to execute any code before/after.
+
+ 1. starting
+ 2. updating
+ 3. compiling
+ 4. packaging
+ 5. finishing
+
+
+### Plugins
+
+Plugins are usually simple tasks that are executed in several steps during building process. Plugins can't rely on each other, rather use variables, that are accessible with `set(:var)` and for reading `fetch(:var)`.
+
+Each plugin can be enabled in `Capfile`:
+
+```ruby
+require 'capistrano/parcel/plugin_name'
+```
+
+#### fpm
+
+Used for packaging whole directory as a deb package. Could be used also for RPM or other packages.
+
+#### uwsgi
+
+Simple application server configuration.
+
+Enable with:
+
+```ruby
+require 'capistrano/parcel/plugin_name'
+```
+
+#### supervisor
+
+(experimental)
+
+#### virtualenv
+
+(experimental)
+
+
 ### Package metadata
 
 Meta information about package is fetched from a `package.yml` file which must be located on local filesystem (in directory where is `cap` command executed).
