@@ -5,3 +5,4 @@ set :uwsgi_port, 3000
 set :uwsgi_processes, 1
 set :uwsgi_enable_threads, false
 set :uwsgi_file, ''
+set :uwsgi_master, true
