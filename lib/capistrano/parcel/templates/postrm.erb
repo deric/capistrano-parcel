@@ -6,9 +6,9 @@ APP_NAME=<%= fetch(:application) %>
 
 case "$1" in
     remove)
-      <% fetch(:deb_postrm).each do |line| %>
+      <% fetch(:deb_postrm).each do |line| -%>
       <%= line %>
-      <% end unless fetch(:deb_postrm).nil? %>
+      <% end unless fetch(:deb_postrm).nil? -%>
 	;;
 
     purge)

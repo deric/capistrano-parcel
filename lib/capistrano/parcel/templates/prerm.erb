@@ -6,9 +6,9 @@ APP_NAME=<%= fetch(:application) %>
 
 case "$1" in
     upgrade)
-      <% fetch(:deb_prerm).each do |line| %>
+      <% fetch(:deb_prerm).each do |line| -%>
       <%= line %>
-      <% end unless fetch(:deb_prerm).nil? %>
+      <% end unless fetch(:deb_prerm).nil? -%>
     ;;
 
     failed-upgrade|abort-install|abort-upgrade|disappear|purge|remove)

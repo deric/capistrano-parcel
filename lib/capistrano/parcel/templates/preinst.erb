@@ -9,9 +9,9 @@ case "$1" in
 	;;
 
     install|upgrade)
-      <% fetch(:deb_preinst).each do |line| %>
+      <% fetch(:deb_preinst).each do |line| -%>
       <%= line %>
-      <% end unless fetch(:deb_preinst).nil? %>
+      <% end unless fetch(:deb_preinst).nil? -%>
 
         ;;
     abort-upgrade)

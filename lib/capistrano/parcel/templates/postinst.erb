@@ -6,9 +6,9 @@ APP_NAME=<%= fetch(:application) %>
 
 case "$1" in
     configure)
-        <% fetch(:deb_postinst).each do |line| %>
+        <% fetch(:deb_postinst).each do |line| -%>
         <%= line %>
-        <% end unless fetch(:deb_postinst).nil? %>
+        <% end unless fetch(:deb_postinst).nil? -%>
         ;;
 
     abort-upgrade|abort-remove|abort-deconfigure)

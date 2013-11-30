@@ -23,8 +23,8 @@ namespace :parcel do
       fetch(:control_scripts).each do |script|
         template = File.read(File.expand_path("../../templates/#{script}.erb", __FILE__))
         on roles :deb do
-          # upload file contents as stream
-          upload! StringIO.new(ERB.new(template).result(binding)), "#{shared_path}/#{script}"
+          # upload file contents as stream, '-' is sign skiping empty lines
+          upload! StringIO.new(ERB.new(template, nil, '-').result(binding)), "#{shared_path}/#{script}"
         end
       end
     end
