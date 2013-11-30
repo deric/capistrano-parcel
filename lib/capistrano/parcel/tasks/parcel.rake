@@ -10,12 +10,15 @@ namespace :parcel do
     invoke "#{sct}:install"
     invoke 'parcel:symlink:release'
     invoke 'parcel:updating:scripts'
+    invoke 'parcel:permissions'
   end
 
   # change permissions to project files
   task :permissions do
-    deb_postinst "chown -R #{fetch(:owner)} #{fetch(:install_to)}"
-    deb_postinst "chgrp -R #{fetch(:group)} #{fetch(:install_to)}"
+    on roles :build do
+      deb_postinst "chown -R #{fetch(:owner)} #{fetch(:install_to)}" unless fetch(:owner).empty?
+      deb_postinst "chgrp -R #{fetch(:group)} #{fetch(:install_to)}" unless fetch(:group).empty?
+    end
   end
 
   namespace :updating do
