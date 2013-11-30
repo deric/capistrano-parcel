@@ -4,11 +4,7 @@ namespace :supervisor do
     on roles :deb do
       deb_dependency 'supervisor'
       deb_dependency 'python3-pip' if fetch(:pip3)
-      deb_postinst "/etc/init.d/supervisor stop"
-      deb_postinst "sleep 1"
-      deb_postinst "/etc/init.d/supervisor start"
-      deb_postinst "supervisorctl start #{fetch(:application)}"
-
+      deb_postinst "supervisorctl restart #{fetch(:application)}"
       deb_prerm "supervisorctl stop #{fetch(:application)}"
     end
   end

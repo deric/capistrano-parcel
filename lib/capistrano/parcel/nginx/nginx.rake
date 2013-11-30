@@ -21,7 +21,7 @@ namespace :nginx do
       avail_dir = package_root.join('etc/nginx/sites-available')
       enabled_dir = package_root.join('etc/nginx/sites-enabled')
       execute :mkdir, '-p', avail_dir, enabled_dir
-      file = avail_dir.join("#{fetch(:application)}.ini")
+      file = avail_dir.join("#{fetch(:application)}")
       upload! StringIO.new(ERB.new(template, nil, '-').result(binding)), file
     end
   end
