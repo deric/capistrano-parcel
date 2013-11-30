@@ -20,7 +20,7 @@ namespace :uwsgi do
     task :runit do
       on roles :deb do
         deb_dependency 'runit'
-        set :uwsgi_file, install_path.join("config/#{fetch(:application)}.ini")
+        set :uwsgi_conf, install_path.join("config/#{fetch(:application)}.ini")
         deb_postinst "if [ ! -f '/etc/service/#{fetch(:application)}' ]; then"
         deb_postinst "\tln -s #{fetch(:install_to)} /etc/service/#{fetch(:application)}"
         deb_postinst "fi"
@@ -30,7 +30,7 @@ namespace :uwsgi do
     task :init do
       on roles :deb do
         avail_dir = package_root.join('etc/uwsgi/apps-available')
-        set :uwsgi_file, avail_dir.join("#{fetch(:application)}.ini")
+        set :uwsgi_conf, avail_dir.join("#{fetch(:application)}.ini")
         deb_postinst "if [ ! -f '/etc/uwsgi/apps-enabled/#{fetch(:application)}.ini' ]; then"
         deb_postinst "\tln -s /etc/uwsgi/apps-available/#{fetch(:application)}.ini /etc/uwsgi/apps-enabled/#{fetch(:application)}.ini"
         deb_postinst "fi"
@@ -49,7 +49,7 @@ namespace :uwsgi do
       on roles :build do
         conf_dir = install_path.join('config')
         execute :mkdir, '-p', conf_dir
-        upload! StringIO.new(ERB.new(File.read(conf_erb), nil, '-').result(binding)), fetch(:uwsgi_file)
+        upload! StringIO.new(ERB.new(File.read(conf_erb), nil, '-').result(binding)), fetch(:uwsgi_conf)
         upload! StringIO.new(ERB.new(run, nil, '-').result(binding)), "#{install_path}/run"
       end
     end
@@ -61,7 +61,7 @@ namespace :uwsgi do
       on roles :build do
         avail_dir = package_root.join('etc/uwsgi/apps-available')
         execute :mkdir, '-p', avail_dir
-        upload! StringIO.new(ERB.new(template, nil, '-').result(binding)), fetch(:uwsgi_file)
+        upload! StringIO.new(ERB.new(template, nil, '-').result(binding)), fetch(:uwsgi_conf)
       end
     end
 
