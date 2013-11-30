@@ -21,6 +21,11 @@ module Capistrano
       Pathname.new(Rake.application.original_dir)
     end
 
+    # source code transfer
+    def sct
+      fetch(:sct)
+    end
+
     # dependencies for building
     # accepts either String or Array
     def require_gem(gem)

@@ -6,10 +6,10 @@ task :deb do
 end
 
 namespace :deb do
+  # find last deb release
   task :find_package do
     run_locally do
       package = capture(:ls, '-xr *.deb').split[0]
-      puts "package #{package}"
       set :last_package, package
     end
   end
@@ -18,10 +18,12 @@ namespace :deb do
     # all servers in given group
     roles(:all).each do |server|
       run_locally do
-        opts = server.ssh_options
         cmd = ""
-        cmd << " -i #{opts[:keys].first}"  if opts.key? :keys
-        cmd << " -P#{opts[:port]}" if opts.key? :port
+        opts = server.ssh_options
+        unless opts.empty?
+          cmd << " -i #{opts[:keys].first}"  if opts.key? :keys
+          cmd << " -P#{opts[:port]}" if opts.key? :port
+        end
         cmd << " #{local_dir}/#{fetch(:last_package)} #{server.user}@#{server.hostname}: "
         execute :scp, cmd
       end

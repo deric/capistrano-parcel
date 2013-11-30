@@ -4,6 +4,7 @@ namespace :uwsgi do
   task :init do
     on roles :deb do
       deb_dependency 'uwsgi'
+      deb_dependency 'uwsgi-plugin-python3' if fetch(:python3)
       deb_postinst "if [ ! -f '/etc/uwsgi/apps-enabled/#{fetch(:application)}.ini' ]; then"
       deb_postinst "ln -s /etc/uwsgi/apps-available/#{fetch(:application)}.ini /etc/uwsgi/apps-enabled/#{fetch(:application)}.ini"
       deb_postinst "fi"

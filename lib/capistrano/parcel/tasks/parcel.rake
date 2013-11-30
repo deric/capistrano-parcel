@@ -7,7 +7,7 @@ namespace :parcel do
   end
 
   task :updating => :new_release_path do
-    invoke "#{scm}:install"
+    invoke "#{sct}:install"
     invoke 'parcel:symlink:release'
     invoke 'parcel:updating:scripts'
   end
@@ -46,7 +46,7 @@ namespace :parcel do
 
   # Check required files and directories exist
   task :check do
-    invoke "#{scm}:check"
+    invoke "#{sct}:check"
     invoke 'parcel:check:directories'
     invoke 'parcel:check:dependencies'
     invoke 'parcel:check:gems'
