@@ -6,6 +6,7 @@ namespace :virtualenv do
       require_deb 'python-virtualenv'
       # must be install also on production system
       deb_dependency 'python-virtualenv'
+      deb_postinst "virtualenv #{fetch(:install_to)}/#{fetch(:venv_name)}"
       set :venv_path, "#{install_path}/#{fetch(:venv_name)}"
     end
   end
@@ -57,6 +58,6 @@ namespace :virtualenv do
 end
 
 namespace :parcel do
-  before 'parcel:starting', 'virtualenv:check'
-  before 'parcel:packaging', 'virtualenv:create'
+  after 'parcel:starting', 'virtualenv:check'
+  after 'parcel:packaging', 'virtualenv:create'
 end

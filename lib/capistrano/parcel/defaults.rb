@@ -2,6 +2,8 @@
 set :required_gems, []
 set :deb_dependency, []
 
+set :git_submodules, false
+
 set :control_scripts, ['postinst', 'postrm', 'preinst', 'prerm']
 
 # package building tool

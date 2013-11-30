@@ -5,7 +5,11 @@ namespace :rsync do
     end
     roles(:build).each do |server|
       run_locally do
-        cmd = "-av '#{local_dir}'"
+        source = local_dir.to_s
+        unless source[-1,1] == '/'
+          source << '/' # copy directory contents but not the folder
+        end
+        cmd = "-av '#{local_dir}/'"
         if File.exists?("#{local_dir}/.rsync-ignore")
           cmd << " --exclude-from=.rsync-ignore"
         end

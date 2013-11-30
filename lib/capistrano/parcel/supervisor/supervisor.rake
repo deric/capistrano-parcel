@@ -3,7 +3,7 @@ namespace :supervisor do
   task :init do
     on roles :deb do
       deb_dependency 'supervisor'
-      deb_postinst "virtualenv /#{fetch(:install_to)}/#{fetch(:venv_name)}"
+      deb_dependency 'python3-pip' if fetch(:pip3)
       deb_postinst "/etc/init.d/supervisor stop"
       deb_postinst "sleep 1"
       deb_postinst "/etc/init.d/supervisor start"
@@ -30,6 +30,6 @@ end
 # before 'parcel:started' all plugins should
 # specify its requiremets
 namespace :parcel do
-  before 'parcel:starting', 'supervisor:init'
+  after 'parcel:starting', 'supervisor:init'
   after 'parcel:updating', 'supervisor:setup'
 end
