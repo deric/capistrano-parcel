@@ -11,9 +11,9 @@ socket = <%= "#{fetch(:uwsgi_socket)}" %>
 <% end -%>
 
 # change to project directory
-chdir = /<%= fetch(:install_to) %>
+chdir = <%= fetch(:install_to) %>
 <% if fetch(:use_virtualenv) -%>
-virtualenv = /<%= fetch(:install_to) %>/<%= fetch(:venv_name) %>
+virtualenv = <%= fetch(:install_to) %>/<%= fetch(:venv_name) %>
 <% end -%>
 processes = <%= fetch(:uwsgi_processes) %>
 enable-threads= <%= fetch(:uwsgi_enable_threads) %>
