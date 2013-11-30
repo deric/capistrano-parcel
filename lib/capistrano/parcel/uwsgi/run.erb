@@ -1,0 +1,8 @@
+#!/bin/sh
+exec 2>&1
+exec uwsgi \
+  --master \
+  --uid www-data \
+  --max-requests=5000 \      # respawn processes after serving 5000 requests
+  --ini <%= "#{install_to}/config/#{fetch(:application)}.ini" %> \
+  --logto <%= fetch(:log_dir) %>/uwsgi/#{fetch(:application)}.log

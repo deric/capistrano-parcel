@@ -13,3 +13,6 @@ set :uwsgi_harakiri, 30
 set :uwsgi_no_orphans, true
 set :uwsgi_vacuum, true
 set :python3, true
+
+# either :runit, :init, :supervisor
+set :uwsgi_supervision, :runit
