@@ -21,7 +21,7 @@ namespace :supervisor do
       config_dir = package_root.join('etc/supervisor/conf.d')
       execute :mkdir, '-p', config_dir
       file = config_dir.join("#{fetch(:application)}.conf")
-      execute :echo, "\"#{ERB.new(template).result(binding)}\" > #{file}"
+      upload! StringIO.new(ERB.new(template, nil, '-').result(binding)), file
       info "written supervisor config: #{file}"
     end
   end

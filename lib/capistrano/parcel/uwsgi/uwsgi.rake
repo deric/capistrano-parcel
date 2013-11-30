@@ -6,7 +6,7 @@ namespace :uwsgi do
       deb_dependency 'uwsgi'
       deb_dependency 'uwsgi-plugin-python3' if fetch(:python3)
       deb_postinst "if [ ! -f '/etc/uwsgi/apps-enabled/#{fetch(:application)}.ini' ]; then"
-      deb_postinst "ln -s /etc/uwsgi/apps-available/#{fetch(:application)}.ini /etc/uwsgi/apps-enabled/#{fetch(:application)}.ini"
+      deb_postinst "\tln -s /etc/uwsgi/apps-available/#{fetch(:application)}.ini /etc/uwsgi/apps-enabled/#{fetch(:application)}.ini"
       deb_postinst "fi"
     end
     on roles :build do
@@ -23,8 +23,7 @@ namespace :uwsgi do
       enabled_dir = package_root.join('etc/uwsgi/apps-enabled')
       execute :mkdir, '-p', avail_dir, enabled_dir
       file = avail_dir.join("#{fetch(:application)}.ini")
-      execute :echo, "\"#{ERB.new(template).result(binding)}\" > #{file}"
-      info "written uwsgi config: #{file}"
+      upload! StringIO.new(ERB.new(template, nil, '-').result(binding)), file
     end
   end
 end
