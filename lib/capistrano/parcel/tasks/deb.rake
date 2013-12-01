@@ -3,6 +3,7 @@ task :deb do
   invoke 'deb:find_package'
   invoke 'deb:upload'
   invoke 'deb:install'
+  invoke 'deb:restart'
 end
 
 namespace :deb do
@@ -33,6 +34,14 @@ namespace :deb do
   task :install do
     on roles :all do
       execute :dpkg, "-i #{fetch(:last_package)}"
+    end
+  end
+
+  task :restart do
+    on roles :all do
+      if fetch(:restart_service)
+        execute :sv, "restart #{fetch(:shortname)}"
+      end
     end
   end
 end

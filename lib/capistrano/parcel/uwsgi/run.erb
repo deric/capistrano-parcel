@@ -5,4 +5,4 @@ exec uwsgi \
   --die-on-term \
   --uid www-data \
   --ini <%= "#{install_to}/config/#{fetch(:application)}.ini" %> \
-  --logto <%= fetch(:log_dir) %>/uwsgi/<%= fetch(:application) %>.log
+  --logto <%= fetch(:log_dir) %>/uwsgi/<%= fetch(:application) %>.log 2>&1
