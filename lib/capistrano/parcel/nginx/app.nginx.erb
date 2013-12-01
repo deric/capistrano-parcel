@@ -1,5 +1,5 @@
 server {
-        listen          80;
+        listen          <%= fetch(:nginx_port) %>;
         server_name     $hostname;
         access_log /var/log/nginx/<%= fetch(:application) %>-access.log;
         error_log /var/log/nginx/<%= fetch(:application) %>-error.log;
