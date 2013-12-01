@@ -4,12 +4,12 @@ namespace :parcel do
 
   task :starting do
     invoke 'parcel:check'
+    invoke 'parcel:permissions'
   end
 
   task :updating => :new_release_path do
     invoke "#{sct}:install"
     invoke 'parcel:symlink:release'
-    invoke 'parcel:permissions'
     invoke 'parcel:updating:scripts'
   end
 
