@@ -23,7 +23,7 @@ namespace :uwsgi do
         set :uwsgi_conf, install_path.join("config/#{fetch(:application)}.ini")
         deb_postinst "chmod +x #{install_to}/run"
         # this could be quite dangerous
-        deb_postinst "sv restart #{fetch(:shortname)}"
+        deb_postinst %Q[echo "run 'sv restart #{fetch(:shortname)}' to complete upgrade"]
       end
     end
 
