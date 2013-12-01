@@ -2,6 +2,7 @@
 exec 2>&1
 exec uwsgi \
   --master \
+  --die-on-term \
   --uid www-data \
   --ini <%= "#{install_to}/config/#{fetch(:application)}.ini" %> \
   --logto <%= fetch(:log_dir) %>/uwsgi/<%= fetch(:application) %>.log
