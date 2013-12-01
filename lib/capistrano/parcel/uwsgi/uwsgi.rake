@@ -22,10 +22,8 @@ namespace :uwsgi do
         deb_dependency 'runit'
         set :uwsgi_conf, install_path.join("config/#{fetch(:application)}.ini")
         deb_postinst "chmod +x #{install_to}/run"
-        deb_postinst "if [ ! -f '/etc/service/#{fetch(:application)}' ]; then"
-        deb_postinst "\tln -s #{fetch(:install_to)} /etc/service/#{fetch(:application)}"
-        deb_postinst "fi"
-        deb_postinst "sv restart #{fetch(:application)}"
+        # this could be quite dangerous
+        #deb_postinst "sv restart #{fetch(:application)}"
       end
     end
 
