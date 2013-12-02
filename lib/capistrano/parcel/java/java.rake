@@ -8,7 +8,7 @@ namespace :java do
 
   task :compile do
     on roles :build do
-      within repo_path do
+      within install_path do
         execute :mvn, 'install'
       end
     end
