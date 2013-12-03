@@ -9,7 +9,7 @@ namespace :java do
   task :compile do
     on roles :build do
       within install_path do
-        execute :mvn, 'install'
+        execute  "#{fetch(:java_compile_cmd)}"
       end
     end
   end
