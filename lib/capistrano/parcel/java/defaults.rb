@@ -1,1 +1,1 @@
-:java_compile_cmd, 'mvn install'
+set :java_compile_cmd, 'mvn install'
