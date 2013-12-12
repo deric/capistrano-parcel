@@ -10,8 +10,8 @@ Gem::Specification.new do |spec|
   spec.email         = ["barton.tomas@gmail.com"]
   spec.description   = %q{Simple tool for remote packaging}
   spec.summary       = %q{Parcel should build package on remote server, download to local and then publish}
-  spec.homepage      = ""
-  spec.license       = "MIT"
+  spec.homepage      = 'https://github.com/deric/capistrano-parcel'
+  spec.license       = 'MIT'
 
   spec.files         = `git ls-files`.split($/)
   spec.executables   = spec.files.grep(%r{^bin/}) { |f| File.basename(f) }
