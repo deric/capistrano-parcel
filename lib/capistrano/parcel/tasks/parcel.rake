@@ -47,6 +47,7 @@ namespace :parcel do
   end
 
   task :finishing do
+    invoke 'parcel:cleanup'
   end
 
   # Check required files and directories exist
@@ -112,6 +113,25 @@ namespace :parcel do
     on roles(:all) do
       last_release = capture(:ls, '-xr', releases_path).split[1]
       set_release_path(last_release)
+    end
+  end
+
+  desc 'Clean up old releases'
+  task :cleanup do
+    on release_roles :build do |host|
+      releases = capture(:ls, '-x', releases_path).split
+      if releases.count >= fetch(:keep_releases)
+        info t(:keeping_releases, host: host.to_s, keep_releases: fetch(:keep_releases), releases: releases.count)
+        directories = (releases - releases.last(fetch(:keep_releases)))
+        if directories.any?
+          directories_str = directories.map do |release|
+            releases_path.join(release)
+          end.join(" ")
+          execute :rm, '-rf', directories_str
+        else
+          info t(:no_old_releases, host: host.to_s, keep_releases: fetch(:keep_releases))
+        end
+      end
     end
   end
 end

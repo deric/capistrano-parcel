@@ -15,3 +15,5 @@ set :group, 'www-data'
 set :log_dir, '/var/log'
 
 set :restart_service, true
+
+set :keep_releases, 1
