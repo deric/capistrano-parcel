@@ -8,9 +8,7 @@ namespace :java do
 
   task :compile do
     on roles :build do
-      within install_path do
-        execute  "#{fetch(:java_compile_cmd)}"
-      end
+      execute "cd #{install_path} && #{fetch(:java_compile_cmd)}"
     end
   end
 end
