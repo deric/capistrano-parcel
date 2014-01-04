@@ -9,7 +9,7 @@ namespace :rsync do
         unless source[-1,1] == '/'
           source << '/' # copy directory contents but not the folder
         end
-        cmd = "-av '#{local_dir}/'"
+        cmd = "-av --chmod=o-rwx -p '#{local_dir}/'"
         if File.exists?("#{local_dir}/.rsync-ignore")
           cmd << " --exclude-from=.rsync-ignore"
         end
