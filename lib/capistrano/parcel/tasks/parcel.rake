@@ -41,7 +41,8 @@ namespace :parcel do
     # download builds
     roles(:deb).each do |server|
       run_locally do
-        execute :scp, "-i #{server.ssh_options[:keys].first} #{server.user}@#{server.hostname}:#{fetch(:package_file)} ."
+        port = server.ssh_options.key?(:port) ? server.ssh_options[:port] : 22
+        execute :scp, "-P #{port} -i #{server.ssh_options[:keys].first} #{server.user}@#{server.hostname}:#{fetch(:package_file)} ."
       end
     end
   end
