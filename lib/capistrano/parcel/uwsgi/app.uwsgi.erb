@@ -26,3 +26,6 @@ vacuum = <%= fetch(:uwsgi_vacuum) %>
 <% if fetch(:python3) -%>
 plugins = python3
 <% end -%>
+<% if fetch(:pyargv) -%>
+pyargv = <%= fetch(:pyargv) %>
+<% end -%>
