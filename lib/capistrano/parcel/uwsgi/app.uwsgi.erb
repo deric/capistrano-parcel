@@ -23,8 +23,8 @@ wsgi-file = <%= fetch(:uwsgi_file) %>
 harakiri = <%= fetch(:uwsgi_harakiri) %>
 no-orphans = <%= fetch(:uwsgi_no_orphans) %>
 vacuum = <%= fetch(:uwsgi_vacuum) %>
-<% if fetch(:python3) -%>
-plugins = python3
+<% if fetch(:uwsgi_plugins) -%>
+plugins = <%= fetch(:uwsgi_plugins) %>
 <% end -%>
 <% if fetch(:pyargv) -%>
 pyargv = <%= fetch(:pyargv) %>

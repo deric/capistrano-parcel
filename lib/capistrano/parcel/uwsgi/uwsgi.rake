@@ -5,7 +5,6 @@ namespace :uwsgi do
     invoke "uwsgi:supervision:#{fetch(:uwsgi_supervision)}"
     on roles :deb do
       deb_dependency 'uwsgi'
-      deb_dependency 'uwsgi-plugin-python3' if fetch(:python3)
     end
     on roles :build do
       set :project_dir, "#{install_path}"
