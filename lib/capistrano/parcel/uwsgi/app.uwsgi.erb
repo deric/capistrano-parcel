@@ -1,6 +1,17 @@
 [uwsgi]
 # set the http port
 master = <%= fetch(:uwsgi_master) %>
+<% if fetch(:uwsgi_listen) == 'http'-%>
+<% unless fetch(:uwsgi_port).nil? -%>
+  <% if !fetch(:uwsgi_ip).nil? && !fetch(:uwsgi_ip).empty? -%>
+http = <%= "#{fetch(:uwsgi_ip)}:#{fetch(:uwsgi_port)}" %>
+  <% else -%>
+http = <%= "0.0.0.0:#{fetch(:uwsgi_port)}" %>
+  <% end -%>
+<% else -%>
+http = "0.0.0.0:80"
+<% end -%>
+<% else -%>
 <% unless fetch(:uwsgi_port).nil? -%>
   <% if !fetch(:uwsgi_ip).nil? && !fetch(:uwsgi_ip).empty? -%>
 socket = <%= "#{fetch(:uwsgi_ip)}:#{fetch(:uwsgi_port)}" %>
@@ -9,6 +20,7 @@ socket = <%= "0.0.0.0:#{fetch(:uwsgi_port)}" %>
   <% end -%>
 <% else -%>
 socket = <%= "#{fetch(:uwsgi_socket)}" %>
+<% end -%>
 <% end -%>
 # change to project directory
 chdir = <%= fetch(:install_to) %>

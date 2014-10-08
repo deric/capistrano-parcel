@@ -2,6 +2,7 @@
 set :use_uwsgi, true
 set :uwsgi_bin, '/usr/bin/uwsgi'
 set :uwsgi_user, 'www-data'
+set :uwsgi_listen, 'socket' # 'socket' or 'http'
 set :uwsgi_socket, "/run/uwsgi/app/#{fetch(:application)}/socket"
 set :uwsgi_processes, 1
 set :uwsgi_enable_threads, false
