@@ -41,3 +41,6 @@ plugins = <%= fetch(:uwsgi_plugins) %>
 <% if fetch(:pyargv) -%>
 pyargv = <%= fetch(:pyargv) %>
 <% end -%>
+<% if fetch(:uwsgi_buffer_size) -%>
+buffer-size = <%= fetch(:uwsgi_buffer_size) %>
+<% end -%>
