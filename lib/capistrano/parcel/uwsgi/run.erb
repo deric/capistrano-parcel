@@ -2,9 +2,9 @@
 exec 2>&1
 
 if [ -z "$APP_ENV" && $APP_ENV == 'development' ]; then
-  INI_CONFIG="#{install_to}/config/#{fetch(:application)}-dev.ini"
+  INI_CONFIG="#{install_to}/config/<%= fetch(:application) %>-dev.ini"
 else
-  INI_CONFIG="#{install_to}/config/#{fetch(:application)}.ini"
+  INI_CONFIG="#{install_to}/config/<%= fetch(:application) %>.ini"
 fi
 
 exec uwsgi \
