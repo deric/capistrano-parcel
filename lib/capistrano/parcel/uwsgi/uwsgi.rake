@@ -4,7 +4,7 @@ namespace :uwsgi do
   task :init do
     invoke "uwsgi:supervision:#{fetch(:uwsgi_supervision)}"
     on roles :deb do
-      deb_dependency 'uwsgi'
+      deb_dependency "#{fetch(:uwsgi_package)}"
     end
     on roles :build do
       set :project_dir, "#{install_path}"

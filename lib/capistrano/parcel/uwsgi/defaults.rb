@@ -12,6 +12,7 @@ set :uwsgi_harakiri, 30
 set :uwsgi_no_orphans, true
 set :uwsgi_vacuum, true
 set :uwsgi_plugins, ''
+set :uwsgi_package, 'uwsgi'
 
 # either :runit, :init, :supervisor
 set :uwsgi_supervision, :runit
