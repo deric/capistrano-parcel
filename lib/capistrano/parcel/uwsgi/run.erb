@@ -1,8 +1,15 @@
 #!/bin/sh
 exec 2>&1
+
+if [ -z "$APP_ENV" && $APP_ENV == 'development' ]; then
+  INI_CONFIG="#{install_to}/config/#{fetch(:application)}-dev.ini"
+else
+  INI_CONFIG="#{install_to}/config/#{fetch(:application)}.ini"
+fi
+
 exec uwsgi \
   --master \
   --die-on-term \
   --uid www-data \
-  --ini <%= "#{install_to}/config/#{fetch(:application)}.ini" %> \
+  --ini "${INI_CONFIG}" \
   --logto <%= fetch(:log_dir) %>/uwsgi/<%= fetch(:application) %>.log 2>&1
