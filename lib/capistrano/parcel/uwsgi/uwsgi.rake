@@ -48,6 +48,7 @@ namespace :uwsgi do
         execute :mkdir, '-p', conf_dir
         upload! StringIO.new(ERB.new(File.read(conf_erb), nil, '-').result(binding)), fetch(:uwsgi_conf)
         upload! StringIO.new(ERB.new(File.read(run), nil, '-').result(binding)), "#{install_path}/run"
+        execute :chmod, '+x', "#{install_path}/run"
       end
     end
 
