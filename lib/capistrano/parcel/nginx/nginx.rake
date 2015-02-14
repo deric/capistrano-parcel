@@ -27,7 +27,7 @@ namespace :nginx do
   end
 
   task :restart do
-    on roles :all do
+    on roles :deb do
       execute '/etc/init.d/nginx', "reload"
     end
   end
