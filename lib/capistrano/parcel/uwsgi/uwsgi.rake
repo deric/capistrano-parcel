@@ -20,7 +20,10 @@ namespace :uwsgi do
       on roles :deb do
         deb_dependency 'runit'
         set :uwsgi_conf, install_path.join("config/#{fetch(:application)}.ini")
-        deb_postinst "chmod +x #{install_to}/run"
+      end
+      on roles :build do
+        set :sv_dir, "#{package_root}/etc/sv"
+        execute :mkdir, '-p', "#{fetch(:sv_dir)}/log"
       end
     end
 
@@ -47,8 +50,8 @@ namespace :uwsgi do
         conf_dir = install_path.join('config')
         execute :mkdir, '-p', conf_dir
         upload! StringIO.new(ERB.new(File.read(conf_erb), nil, '-').result(binding)), fetch(:uwsgi_conf)
-        upload! StringIO.new(ERB.new(File.read(run), nil, '-').result(binding)), "#{install_path}/run"
-        execute :chmod, '+x', "#{install_path}/run"
+        upload! StringIO.new(ERB.new(File.read(run), nil, '-').result(binding)), "#{fetch(:sv_dir)}/run"
+        execute :chmod, '+x', "#{fetch(:sv_dir)}/run"
       end
     end
 
