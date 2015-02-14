@@ -17,4 +17,4 @@ set :log_dir, '/var/log'
 set :restart_service, true
 
 set :keep_releases, 1
-set :rsync_exclude, [ '.git' ]
+set :rsync_exclude, [ '.git', '*.deb' ]
