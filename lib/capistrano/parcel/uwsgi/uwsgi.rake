@@ -53,7 +53,6 @@ namespace :uwsgi do
         upload! StringIO.new(ERB.new(File.read(conf_erb), nil, '-').result(binding)), fetch(:uwsgi_conf)
         upload! StringIO.new(ERB.new(File.read(run), nil, '-').result(binding)), "#{fetch(:sv_dir)}/run"
         execute :chmod, "+x #{fetch(:sv_dir)}/run"
-        execute :chown, "-R #{fetch(:owner)} #{fetch(:sv_dir)}" unless fetch(:owner).empty?
       end
     end
 
