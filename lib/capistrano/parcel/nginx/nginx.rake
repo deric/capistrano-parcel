@@ -38,5 +38,8 @@ end
 namespace :parcel do
   after 'parcel:starting', 'nginx:init'
   after 'parcel:updating', 'nginx:setup'
+end
+
+namespace :deb do
   after 'deb:restart', 'nginx:restart'
 end
