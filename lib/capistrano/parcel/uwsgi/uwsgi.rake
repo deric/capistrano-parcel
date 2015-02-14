@@ -21,10 +21,6 @@ namespace :uwsgi do
         deb_dependency 'runit'
         set :uwsgi_conf, install_path.join("config/#{fetch(:application)}.ini")
       end
-      on roles :build do
-        set :sv_dir, "#{package_root}/etc/sv"
-        execute :mkdir, '-p', "#{fetch(:sv_dir)}/log"
-      end
     end
 
     task :init do
@@ -44,6 +40,11 @@ namespace :uwsgi do
 
   namespace :setup do
     task :runit do
+      on roles :build do
+        set :sv_dir, "#{package_root}/etc/sv"
+        execute :mkdir, '-p', "#{fetch(:sv_dir)}/log"
+      end
+
       conf_erb = File.expand_path("../app.uwsgi.erb", __FILE__)
       run = File.expand_path("../run.erb", __FILE__)
       on roles :build do
