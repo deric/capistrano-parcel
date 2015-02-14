@@ -19,7 +19,9 @@ namespace :parcel do
       deb_postinst "chown -R #{fetch(:owner)} #{fetch(:install_to)}" unless fetch(:owner).empty?
       deb_postinst "chgrp -R #{fetch(:group)} #{fetch(:install_to)}" unless fetch(:group).empty?
       deb_postinst "chown -R #{fetch(:owner)} #{fetch(:sv_dir)}" unless fetch(:owner).empty?
-      deb_postinst "chgrp -R #{fetch(:group)} #{fetch(:sv_dir)}" unless fetch(:group).empty?
+      deb_postinst "if [ -d '/etc/sv/#{fetch(:application)}' ]; then"
+      deb_postinst "  chgrp -R #{fetch(:group)} /etc/sv/#{fetch(:application)}" unless fetch(:group).empty?
+      deb_postinst "fi"
     end
   end
 
