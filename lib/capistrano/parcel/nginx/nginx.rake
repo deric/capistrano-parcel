@@ -25,6 +25,12 @@ namespace :nginx do
       upload! StringIO.new(ERB.new(template, nil, '-').result(binding)), file
     end
   end
+
+  task :restart do
+    on roles :all do
+      execute '/etc/init.d/nginx', "reload"
+    end
+  end
 end
 
 # before 'parcel:started' all plugins should
@@ -32,4 +38,5 @@ end
 namespace :parcel do
   after 'parcel:starting', 'nginx:init'
   after 'parcel:updating', 'nginx:setup'
+  after 'parcel:finishing', 'nginx:restart'
 end
