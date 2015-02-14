@@ -41,7 +41,7 @@ namespace :uwsgi do
   namespace :setup do
     task :runit do
       on roles :build do
-        set :sv_dir, "#{package_root}/etc/sv"
+        set :sv_dir, "#{package_root}/etc/sv/#{fetch(:application)}"
         execute :mkdir, '-p', "#{fetch(:sv_dir)}/log"
       end
 
