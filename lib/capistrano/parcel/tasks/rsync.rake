@@ -13,6 +13,12 @@ namespace :rsync do
         if File.exists?("#{local_dir}/.rsync-ignore")
           cmd << " --exclude-from=.rsync-ignore"
         end
+        exclude = fetch(:rsync_exclude)
+        if !exclude.nil? && exclude.size > 0
+          exclude.each do |ex|
+            cmd << " --exclude='#{ex}'"
+          end
+        end
         opts, ssh = server.ssh_options, ''
         unless opts.empty?
           ssh << " -i #{File.expand_path(opts[:keys].first)}"  if opts.key? :keys

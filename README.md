@@ -62,6 +62,16 @@ Each phase is a separate Rake task. You can use `before` and `after` hooks to ex
  5. finishing
 
 
+### Rsync
+
+Rsync is used for copying files to build server. This way we can easily copy a git repository with submodules.
+
+You can control which files will be packaged with
+
+```ruby
+set :rsync_exclude, [ '.git', 'some-other-dir' ]
+```
+
 ### Plugins
 
 Plugins are usually simple tasks that are executed in several steps during building process. Plugins can't rely on each other, rather use variables, that are accessible with `set(:var)` and for reading `fetch(:var)`.
