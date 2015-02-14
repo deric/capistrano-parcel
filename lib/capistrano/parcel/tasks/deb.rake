@@ -40,7 +40,7 @@ namespace :deb do
   task :restart do
     on roles :all do
       if fetch(:restart_service)
-        execute :sv, "restart #{fetch(:shortname)}"
+        execute :sv, "restart #{fetch(:application)}"
       end
     end
   end
