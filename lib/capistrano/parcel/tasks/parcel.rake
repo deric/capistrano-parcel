@@ -18,6 +18,8 @@ namespace :parcel do
     on roles :build do
       deb_postinst "chown -R #{fetch(:owner)} #{fetch(:install_to)}" unless fetch(:owner).empty?
       deb_postinst "chgrp -R #{fetch(:group)} #{fetch(:install_to)}" unless fetch(:group).empty?
+      deb_postinst "chown -R #{fetch(:owner)} #{fetch(:sv_dir)}" unless fetch(:owner).empty?
+      deb_postinst "chgrp -R #{fetch(:group)} #{fetch(:sv_dir)}" unless fetch(:group).empty?
     end
   end
 
