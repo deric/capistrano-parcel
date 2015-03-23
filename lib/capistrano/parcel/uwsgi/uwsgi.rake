@@ -19,7 +19,7 @@ namespace :uwsgi do
     task :runit do
       on roles :deb do
         deb_dependency 'runit'
-        set :uwsgi_conf, install_path.join("config/#{fetch(:application)}.ini")
+        set :uwsgi_conf, install_path.join("config/#{fetch(:application)}-uwsgi.ini")
       end
     end
 
